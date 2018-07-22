@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React complex components</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+    var LightningCounter = React.createClass({
+        getInitialState: function () {
+            return {
+                strikes: 0
+            };
+        },
+        timerTick: function () {
+            this.setState({
+                strikes: this.state.strikes + 100
+            });
+        },
+        componentDidMount: function () {
+          setInterval(this.timerTick, 1600);
+        },
+        render: function () {
+            var counterStyle = {
+                color: "#66ffff",
+                fontSize: 50
+            };
+            var count = this.state.strikes.toLocaleString();
+
+            return (
+                <h1 style={counterStyle}>{count}</h1>
+            )
+        }
+    });
+
+    var LightningCounterDisplay = React.createClass({
+        render: function () {
+
+            var commonStyle = {
+                margin: 0,
+                padding: 0
+            };
+
+            var divStyle = {
+                width: 250,
+                textAlign: "center",
+                backgroundColor: this.props.bgColor,
+                padding: 40,
+                marginBottom: 20,
+                fontFamily: "sans-serif",
+                color: "#999",
+                borderRadius: 10
+            };
+
+            var textStyles = {
+                emphasis: {
+                    fontSize: 38,
+                    ...commonStyle
+                },
+                smallEmphasis: {
+                    ...commonStyle
+                },
+                small: {
+                    fontSize: 17,
+                    opacity: 0.5,
+                    ...commonStyle
+                }
+            };
+
+            return (
+                <div style={divStyle}>
+                    <LightningCounter />
+                    <h2 style={textStyles.smallEmphasis}>LIGHTNING STRIKES</h2>
+                    <h2 style={textStyles.emphasis}>WORLDWIDE</h2>
+                    <p style={textStyles.small}>(since you loaded this example)</p>
+                </div>
+            )
+        }
+    });
+//var LightningCounterDisplayView = <LightningCounterDisplay bgColor="green"/>;
+    var colors = ["black","#98ff6f","#ff6332","#7626ff","#fdff1f"];
+    var renderData = [];
+    for (var i = 0; i<colors.length;i++) {
+        var color = colors[i];
+        renderData.push(<LightningCounterDisplay bgColor={color}/>);
+    }
+    ReactDOM.render(
+        <div>
+            {renderData}
+        </div>
+        ,
+        document.querySelector("#container")
+    );
+</script>
+</body>
+</html>

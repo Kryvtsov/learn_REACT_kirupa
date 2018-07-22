@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React hello</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="button"></div>
+<script type="text/babel">
+    var HelloWorld = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <p>Hello {this.props.greetTarget}</p>
+                    <a href = {this.props.greetUrl}>{this.props.greetUrl}</a>
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <HelloWorld greetTarget="batman" greetUrl="https://google.com"/>
+            <HelloWorld greetTarget="iron"/>
+            <HelloWorld greetTarget="Nicolas" greetUrl="https://weather.com"/>
+            <HelloWorld greetTarget="Супермен"/>
+            <HelloWorld greetTarget="Чувак" greetUrl="https://iphones.ru"/>
+            <HelloWorld greetTarget="Boy"/>
+
+        </div>,
+        document.querySelector("#container")
+    );
+
+    var Buttonify = React.createClass({
+        render: function () {
+            return (
+                <div>
+                    <button type = {this.props.behavior}>{this.props.children}</button>
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <div>
+            <Buttonify behavior = "Submit">SEND DATA</Buttonify>
+            <Buttonify behavior = "Submit">SEND some</Buttonify>
+            <Buttonify behavior = "Submit">just DATA</Buttonify>
+        </div>,
+        document.querySelector("#button")
+    )
+
+</script>
+</body>
+</html>
